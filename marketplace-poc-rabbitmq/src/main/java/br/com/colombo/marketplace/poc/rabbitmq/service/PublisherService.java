@@ -6,10 +6,10 @@ import java.util.Optional;
 /**
  * @author carloshenrique
  */
-public interface SenderService {
+public interface PublisherService {
 
-	default void send(Message message) {
-		Optional.ofNullable(message).ifPresent(System.out::println);
-	}
+    default void publish(Message message) {
+        Optional.ofNullable(message).ifPresent(System.out::println);
+    }
 
 }

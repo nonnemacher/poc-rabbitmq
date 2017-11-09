@@ -11,21 +11,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class QueueConfiguration {
 
-	@Value("${rabbitmq.queue.name:hello}")
-	private String name;
+    @Value("${rabbitmq.queue.name:hello}")
+    private String name;
 
-	@Value("${rabbitmq.queue.durable:true}")
-	private boolean durable;
+    @Value("${rabbitmq.queue.durable:true}")
+    private boolean durable;
 
-	@Value("${rabbitmq.queue.exclusive:false}")
-	private boolean exclusive;
+    @Value("${rabbitmq.queue.exclusive:false}")
+    private boolean exclusive;
 
-	@Value("${rabbitmq.queue.autoDelete:false}")
-	private boolean autoDelete;
+    @Value("${rabbitmq.queue.autoDelete:false}")
+    private boolean autoDelete;
 
-	@Bean
-	public Queue queue() {
-		return new Queue(name, durable, exclusive, autoDelete);
-	}
+    @Bean
+    public Queue queue() {
+        return new Queue(name, durable, exclusive, autoDelete);
+    }
 
 }

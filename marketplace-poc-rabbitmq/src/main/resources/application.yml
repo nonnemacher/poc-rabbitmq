@@ -1,7 +1,11 @@
-## YAML Template.
+## Configurações.
 ---
 spring:
     rabbitmq:
-        host: docker.localhost.com
+        host: localhost
+        reciver: false
+        publisher: true
 server:
     port: 9090
+scheduler:
+    enabled: false

@@ -1,1 +1,3 @@
 /marketplace-poc-rabbitmq/nbproject/
+/**/target/
+/marketplace-poc-rabbitmq/nbactions.xml

@@ -1,0 +1,8 @@
+## Configuração para testes.
+---
+spring:
+    rabbitmq:
+        reciver: false
+        publisher: true
+scheduler:
+    enabled: false
