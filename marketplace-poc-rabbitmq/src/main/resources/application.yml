@@ -1,0 +1,7 @@
+## YAML Template.
+---
+spring:
+    rabbitmq:
+        host: docker.localhost.com
+server:
+    port: 9090
