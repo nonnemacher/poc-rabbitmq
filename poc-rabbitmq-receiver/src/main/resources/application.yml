@@ -1,0 +1,3 @@
+rabbitmq:
+    queue:
+        name: queue/poc
