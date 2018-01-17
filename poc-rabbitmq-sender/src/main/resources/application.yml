@@ -1,3 +1,5 @@
-rabbitmq:
-    queue:
-        name: queue/poc
+spring:
+    rabbitmq:
+        host: rabbitmq
+        queue:
+            name: queue/poc

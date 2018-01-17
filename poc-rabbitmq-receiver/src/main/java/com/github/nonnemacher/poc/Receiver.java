@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author carloshenrique
  */
 @SpringBootApplication
-public class Run {
+public class Receiver {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Run.class, args);
+		SpringApplication.run(Receiver.class, args);
 	}
 
 }

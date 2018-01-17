@@ -10,16 +10,16 @@ import org.springframework.context.annotation.Bean;
 //@Configuration
 public class QueueConfiguration {
 
-	@Value("${rabbitmq.queue.name}")
+	@Value("${spring.rabbitmq.queue.name}")
 	private String name;
 
-	@Value("${rabbitmq.queue.durable:true}")
+	@Value("${spring.rabbitmq.queue.durable:true}")
 	private boolean durable;
 
-	@Value("${rabbitmq.queue.exclusive:false}")
+	@Value("${spring.rabbitmq.queue.exclusive:false}")
 	private boolean exclusive;
 
-	@Value("${rabbitmq.queue.autoDelete:false}")
+	@Value("${spring.rabbitmq.queue.autoDelete:false}")
 	private boolean autoDelete;
 
 	@Bean

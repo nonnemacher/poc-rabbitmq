@@ -23,18 +23,21 @@ public class ReceiverServiceImpl implements ReceiverService {
 	private final ObjectMapper objectMapper;
 
 	@Override
-	@RabbitListener(queues = "${rabbitmq.queue.name}")
+	@RabbitListener(queues = "${spring.rabbitmq.queue.name}")
 	public void receive(Message message) throws InterruptedException {
 		final StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
-
 		ReceiverService.super.receive(message);
 
-		stopWatch.stop();
+		final ReceiverMessage receiverMessage;
 		try {
-			log.info(" [x] Message {} in {}s" + objectMapper.readValue(message.getBody(), ReceiverMessage.class).getDescription(), stopWatch.getTotalTimeSeconds());
+			log.info(">> {}", new String(message.getBody()));
+			receiverMessage = objectMapper.readValue(message.getBody(), ReceiverMessage.class);
+			stopWatch.stop();
+			log.info(" [x] Message {} in {}s" + receiverMessage.getDescription(), stopWatch.getTotalTimeSeconds());
 		} catch (IOException ex) {
 			Logger.getLogger(ReceiverServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+			stopWatch.stop();
 		}
 	}
 

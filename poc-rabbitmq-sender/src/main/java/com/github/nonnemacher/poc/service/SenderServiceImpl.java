@@ -7,9 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.MessageBuilder;
+import static org.springframework.amqp.core.MessageProperties.CONTENT_TYPE_JSON;
+import org.springframework.amqp.core.MessagePropertiesBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,17 +22,23 @@ import org.springframework.stereotype.Service;
 public class SenderServiceImpl implements SenderService {
 
 	private final RabbitTemplate rabbitTemplate;
-	private final Queue queue;
+//	private final Queue queue;
 	private final ObjectMapper objectMapper;
+
+	@Value("${spring.rabbitmq.queue.name:hello}")
+	private String queueName;
 
 	@Override
 	public void publish(SenderMessage sender) {
-		final MessageProperties messageProperties = new MessageProperties();
-		messageProperties.setType(MessageProperties.CONTENT_TYPE_JSON);
-		final Message message;
 		try {
-			message = new Message(objectMapper.writeValueAsBytes(sender), messageProperties);
-			rabbitTemplate.send(queue.getName(), message);
+			final Message message = MessageBuilder
+					.withBody(objectMapper.writeValueAsBytes(sender))
+					.andProperties(MessagePropertiesBuilder
+							.newInstance()
+							.setContentType(CONTENT_TYPE_JSON)
+							.build())
+					.build();
+			rabbitTemplate.send(queueName, message);
 		} catch (JsonProcessingException ex) {
 			Logger.getLogger(SenderServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
 		}
